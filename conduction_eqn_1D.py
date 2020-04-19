@@ -54,16 +54,12 @@ T_r = 30
 
 
 def plot_continuous_array(array):
-    # print("writing to file.\n")
-    # os.system("rm 1DConductionVarK.dat")
-    # os.system("PLOTNOW=0")
     file_ptr = open('1DConductionVarK.dat', 'w+')
     for i in range(len(array) - 1):
         data = str(i)  + " " + str(array[i])
         file_ptr.write("%s\n" %data)
     file_ptr.write(str(len(array) - 1) + " " + str(array[len(array) - 1]))
     file_ptr.close()
-    # print("File closed!\n")
 
 def main():
     print("Press 'x' to exit the gnuplot window first then stop the python script.!!\n")
