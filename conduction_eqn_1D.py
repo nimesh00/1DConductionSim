@@ -15,6 +15,7 @@ Some points to keep in mind while using this script:
 * Keep the value of a < 0 (the slope should be negative) for non-linear case.
 * keep the value of ko lower than 0.1 for a stable solution. (values like 0.11 & 0.12 produce solutions that are oscillating for some nodes in time domain).
 * Very high or Very low boundary conditions make the solution unstable.
+* To simulate Linear conduction comment Line 73 and uncomment Line 74
 '''
 
 import numpy as np
