@@ -21,7 +21,6 @@ Some points to keep in mind while using this script:
 import numpy as np
 import os
 import time
-# import subprocess
 
 # Length of rod
 L = 10
