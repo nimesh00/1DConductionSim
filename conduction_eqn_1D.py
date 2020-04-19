@@ -2,10 +2,19 @@
 
 '''
 Script for simulation of 1D conduction in a rod. (Linear and Non-Linear both).
+
 Requirements: Python 3.6.9 + gnuplot 5.2 patchlevel 2
-Author: Nimesh Khandelwal
+
+Author(s): Nimesh Khandelwal
 E-mail: nimesh6798@gmail.com
-Github-repo: https://github.com/nimesh00/1DConduction.git
+Github-repo: https://github.com/nimesh00/1DConductionSim.git
+'''
+
+'''
+Some points to keep in mind while using this script:
+* Keep the value of a < 0 (the slope should be negative) for non-linear case.
+* keep the value of ko lower than 0.1 for a stable solution. (values like 0.11 & 0.12 produce solutions that are oscillating for some nodes in time domain).
+* Very high or Very low boundary conditions make the solution unstable.
 '''
 
 import numpy as np
@@ -59,26 +68,17 @@ def plot_continuous_array(array):
 def main():
     print("Press 'x' to exit the gnuplot window first then stop the python script.!!\n")
     os.system("gnuplot 1DConductionPlot.gnu &")
-    # proc = subprocess.Popen(['gnuplot', '-p'], shell=True, stdin=subprocess.PIPE)
     T[:, 0] = T_l
     T[:, N - 1] = T_r
 
     for i in range(N_t):
         print("Iteration: ", i + 1)
-        # print(T[0])
         for j in range(1, N - 1):
             c = (ko + a * T[0, j]) * dt_dx_2 / c_rho
             # c = ko * dt_dx_2 / c_rho
             T[1, j] = c * (T[0, j + 1] + T[0, j - 1]) + (1 - 2 * c) * T[0, j]
         T[0, :] = T[1, :]
-        os.system("PLOTNOW=0")
         plot_continuous_array(T[0, :])
-        # np.savetxt("1DConductionVarK.dat", T[0])
-        os.system("PLOTNOW=1")
-        # os.system("rm 1DConductionVarK.dat")
-        # proc.stdin.write(b'plot sin(x)\n')
-        # proc.stdin.write(b"plot '1DConductionVarK.dat' using 1:2 with lines;\n")
-        # plot.communicate(b"plot '1DConductionVarK.dat' with lines;")
         time.sleep(0.1)
 
 
